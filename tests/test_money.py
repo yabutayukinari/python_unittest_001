@@ -1,22 +1,26 @@
 import unittest
 
-import Dollar
+import dollar
+import franc
 
 
 class MyTestCase(unittest.TestCase):
     def test_multiplication(self):
-        five = Dollar.Dollar(5)
-        self.assertEqual(Dollar.Dollar(10), five.times(2))
-        self.assertEqual(Dollar.Dollar(15), five.times(3))
+        five = dollar.Dollar(5)
+        self.assertEqual(dollar.Dollar(10), five.times(2))
+        self.assertEqual(dollar.Dollar(15), five.times(3))
 
     def test_equality(self):
-        self.assertTrue(Dollar.Dollar(5).equals(Dollar.Dollar(5)))
-        self.assertFalse(Dollar.Dollar(5).equals(Dollar.Dollar(6)))
+        self.assertTrue(dollar.Dollar(5).equals(dollar.Dollar(5)))
+        self.assertFalse(dollar.Dollar(5).equals(dollar.Dollar(6)))
+        self.assertTrue(franc.Franc(5).equals(franc.Franc(5)))
+        self.assertFalse(franc.Franc(5).equals(franc.Franc(6)))
+        self.assertFalse(franc.Franc(5).equals(dollar.Dollar(5)))
 
     def test_franc_multiplication(self):
-        five = Dollar.Dollar(5)
-        self.assertEqual(Dollar.Dollar(10), five.times(2))
-        self.assertEqual(Dollar.Dollar(15), five.times(3))
+        five = franc.Franc(5)
+        self.assertEqual(franc.Franc(10), five.times(2))
+        self.assertEqual(franc.Franc(15), five.times(3))
 
 
 if __name__ == '__main__':
