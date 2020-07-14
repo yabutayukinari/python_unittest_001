@@ -1,7 +1,3 @@
-# from franc import Franc
-from abc import ABCMeta, abstractmethod
-
-
 class Money(object):
     _amount: int
     _currency: str
@@ -24,30 +20,14 @@ class Money(object):
 
     @staticmethod
     def dollar(amount: int):
-        return Dollar(amount, "USD")
+        return Money(amount, "USD")
 
     @staticmethod
     def franc(amount: int):
-        return Franc(amount, "CHF")
+        return Money(amount, "CHF")
 
     def __str__(self):
         return str(self._amount) + " " + self._currency
 
     __unicode__ = __str__
     __repr__ = __str__
-
-
-class Dollar(Money):
-    """
-    別ファイルで定義すると読み込んでくれないので避難
-    """
-    def __init__(self, amount: int, currency):
-        super().__init__(amount, currency)
-
-
-class Franc(Money):
-    """
-    別ファイルで定義すると読み込んでくれないので避難
-    """
-    def __init__(self, amount: int, currency):
-        super().__init__(amount, currency)
