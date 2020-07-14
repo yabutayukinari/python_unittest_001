@@ -1,4 +1,7 @@
-class Money(object):
+from expression import Expression
+
+
+class Money(Expression):
     _amount: int
     _currency: str
 
@@ -8,6 +11,9 @@ class Money(object):
 
     def times(self, multiplier: int):
         return Money(self._amount * multiplier, self._currency)
+
+    def plus(self, addend) -> Expression:
+        return Money(self._amount + addend._amount, self._currency)
 
     def currency(self) -> str:
         return self._currency
