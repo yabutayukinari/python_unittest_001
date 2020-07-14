@@ -10,18 +10,17 @@ class Money(object):
         self._amount = amount
         self._currency = currency
 
-    @abstractmethod
     def times(self, multiplier: int):
-        raise NotImplementedError
+        return Money(self._amount * multiplier, self._currency)
 
     def currency(self) -> str:
         return self._currency
 
     def equals(self, money) -> bool:
-        return self._amount == money._amount and self.__class__.__name__ == money.__class__.__name__
+        return self._amount == money._amount and self.currency().__eq__(money.currency())
 
     def __eq__(self, money) -> bool:
-        return self._amount == money._amount and self.__class__.__name__ == money.__class__.__name__
+        return self._amount == money._amount and self.currency().__eq__(money.currency())
 
     @staticmethod
     def dollar(amount: int):
@@ -31,6 +30,12 @@ class Money(object):
     def franc(amount: int):
         return Franc(amount, "CHF")
 
+    def __str__(self):
+        return str(self._amount) + " " + self._currency
+
+    __unicode__ = __str__
+    __repr__ = __str__
+
 
 class Dollar(Money):
     """
@@ -39,9 +44,6 @@ class Dollar(Money):
     def __init__(self, amount: int, currency):
         super().__init__(amount, currency)
 
-    def times(self, multiplier: int) -> Money:
-        return Money.dollar(self._amount * multiplier)
-
 
 class Franc(Money):
     """
@@ -49,6 +51,3 @@ class Franc(Money):
     """
     def __init__(self, amount: int, currency):
         super().__init__(amount, currency)
-
-    def times(self, multiplier: int) -> Money:
-        return Money.franc(self._amount * multiplier)
