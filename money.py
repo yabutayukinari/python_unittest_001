@@ -13,10 +13,13 @@ class Money(Expression):
         return Money(self._amount * multiplier, self._currency)
 
     def plus(self, addend) -> Expression:
-        return Money(self._amount + addend._amount, self._currency)
+        return Sum(self, addend)
 
     def currency(self) -> str:
         return self._currency
+
+    def reduce(self, to:str):
+        return self
 
     def equals(self, money) -> bool:
         return self._amount == money._amount and self.currency().__eq__(money.currency())
@@ -37,3 +40,17 @@ class Money(Expression):
 
     __unicode__ = __str__
     __repr__ = __str__
+
+
+class Sum(Expression):
+    augend: Money
+    addend: Money
+
+    def __init__(self, augend: Money, addend: Money):
+        self.augend = augend
+        self.addend = addend
+        pass
+
+    def reduce(self, to: str):
+        amount: int = self.augend._amount + self.addend._amount
+        return Money(amount, to)

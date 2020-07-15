@@ -2,4 +2,5 @@ from abc import ABCMeta
 
 
 class Expression(metaclass=ABCMeta):
-    pass
+    def reduce(self, to: str):
+        pass
