@@ -1,5 +1,5 @@
 from expression import Expression
-
+from bank import Bank
 
 class Money(Expression):
     _amount: int
@@ -18,8 +18,9 @@ class Money(Expression):
     def currency(self) -> str:
         return self._currency
 
-    def reduce(self, to:str):
-        return self
+    def reduce(self, bank: Bank, to: str):
+        rate: int = bank.rate(self._currency, to)
+        return Money(int(self._amount / rate), to)
 
     def equals(self, money) -> bool:
         return self._amount == money._amount and self.currency().__eq__(money.currency())
@@ -51,6 +52,6 @@ class Sum(Expression):
         self.addend = addend
         pass
 
-    def reduce(self, to: str):
+    def reduce(self, bank: Bank, to: str):
         amount: int = self.augend._amount + self.addend._amount
         return Money(amount, to)
