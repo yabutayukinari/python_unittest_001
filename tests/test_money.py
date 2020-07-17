@@ -66,6 +66,13 @@ class MyTestCase(unittest.TestCase):
         result: Money = bank.reduce(Money.franc(2), "USD")
         self.assertEqual(Money.dollar(1), result)
 
+    def test_mixed_addition(self):
+        five_bucks = Money.dollar(5)
+        ten_franc = Money.franc(10)
+        bank = Bank()
+        bank.add_rate("CHF", "USD", 2)
+        result = bank.reduce(five_bucks.plus(ten_franc), "USD")
+        self.assertEqual(Money.dollar(10), result)
 
 if __name__ == '__main__':
     unittest.main()
