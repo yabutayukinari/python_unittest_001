@@ -1,4 +1,5 @@
 import unittest
+from expression import Expression
 from money import Money
 from money import Sum
 from bank import Bank
@@ -67,8 +68,8 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(Money.dollar(1), result)
 
     def test_mixed_addition(self):
-        five_bucks = Money.dollar(5)
-        ten_franc = Money.franc(10)
+        five_bucks: Expression = Money.dollar(5)
+        ten_franc: Expression = Money.franc(10)
         bank = Bank()
         bank.add_rate("CHF", "USD", 2)
         result = bank.reduce(five_bucks.plus(ten_franc), "USD")

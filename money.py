@@ -9,10 +9,10 @@ class Money(Expression):
         self._amount = amount
         self._currency = currency
 
-    def times(self, multiplier: int):
+    def times(self, multiplier: int) -> Expression:
         return Money(self._amount * multiplier, self._currency)
 
-    def plus(self, addend) -> Expression:
+    def plus(self, addend: Expression) -> Expression:
         return Sum(self, addend)
 
     def currency(self) -> str:
@@ -44,14 +44,16 @@ class Money(Expression):
 
 
 class Sum(Expression):
-    augend: Money
-    addend: Money
+    augend: Expression
+    addend: Expression
 
-    def __init__(self, augend: Money, addend: Money):
+    def __init__(self, augend: Expression, addend: Expression):
         self.augend = augend
         self.addend = addend
-        pass
 
     def reduce(self, bank: Bank, to: str):
-        amount: int = self.augend._amount + self.addend._amount
+        amount: int = self.augend.reduce(bank, to)._amount + self.addend.reduce(bank, to)._amount
         return Money(amount, to)
+
+    def plus(self, addend):
+        return None
