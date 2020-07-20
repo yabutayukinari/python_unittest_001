@@ -56,4 +56,4 @@ class Sum(Expression):
         return Money(amount, to)
 
     def plus(self, addend):
-        return None
+        return Sum(self, addend)
