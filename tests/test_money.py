@@ -80,10 +80,18 @@ class MyTestCase(unittest.TestCase):
         ten_franc: Expression = Money.franc(10)
         bank = Bank()
         bank.add_rate("CHF", "USD", 2)
-        sum = Sum(five_bucks,ten_franc).plus(five_bucks)
-        result = bank.reduce(sum, "USD")
+        cul_sum = Sum(five_bucks, ten_franc).plus(five_bucks)
+        result = bank.reduce(cul_sum, "USD")
         self.assertEqual(Money.dollar(15), result)
 
+    def test_sum_times(self):
+        five_bucks: Expression = Money.dollar(5)
+        ten_franc: Expression = Money.franc(10)
+        bank = Bank()
+        bank.add_rate("CHF", "USD", 2)
+        cul_sum = Sum(five_bucks, ten_franc).times(2)
+        result = bank.reduce(cul_sum, "USD")
+        self.assertEqual(Money.dollar(20), result)
 
 if __name__ == '__main__':
     unittest.main()
